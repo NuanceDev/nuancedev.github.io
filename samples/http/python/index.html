@@ -1,0 +1,578 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--
+	 _   _                              ____             
+	| \ | |_   _  __ _ _ __   ___ ___  |  _ \  _____   __
+	|  \| | | | |/ _` | '_ \ / __/ _ \ | | | |/ _ \ \ / /
+	| |\  | |_| | (_| | | | | (_|  __/ | |_| |  __/\ V / 
+	|_| \_|\__,_|\__,_|_| |_|\___\___| |____/ \___| \_/  
+
+-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Python HTTP CLI</title>
+        <meta name="description" content="Python HTTP CLI - Speech Recognition and Synthesis via HTTP services">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/components/google-code-prettify/src/prettify.css">
+        <link rel="stylesheet" href="/styles/main.css">
+        <script src="/scripts/vendor/modernizr.js"></script>
+    </head>
+<body data-spy="scroll" data-target=".docs-sidebar">
+    <div class="nuance-bar"></div>
+    <div class="container">
+		<div class="page-header">
+	<h1><strong>Python HTTP CLI</strong>
+		<br><small>Speech Recognition and Synthesis via HTTP services</small>
+		<!-- <img style='float:right;position:relative;top:-50px;right:0px;' src="http://www.nuance.com/landing-pages/playground/assets/images/logo-old-black.png"> -->
+		<img src="/images/ndev-logo.png" style="float:right;position:absolute;top:-35px;right:0px">
+		<!-- <img style='float:right;position:relative;top:0px;right:0px;' src='http://www.nuancemobiledeveloper.com/views/images/site/logo-ndev.gif'> -->
+	</h1>
+</div>
+
+ 
+<div class="ui-breadcrumbs">
+	<ul> 
+		<li><i class="icon-chevron-right"></i>  <a href="/">NDEV</a></li>
+		
+		<li><i class="icon-chevron-right"></i>  <a href="/samples/"> Code Samples</a></li>
+		
+		<li><i class="icon-chevron-right"></i> Python HTTP CLI</li>
+		
+	</ul>
+</div>
+
+		<div class="row ui-parted-content">
+		  <div class="span4">
+			<div class="docs-sidebar">
+  <ul class="nav nav-list docs-sidenav">
+	
+	<li><a href="#overview"><i class="icon-chevron-right"></i> Overview</a></li>
+    
+	<li><a href="#getting-started"><i class="icon-chevron-right"></i> Getting Started</a></li>
+    
+	<li><a href="#download"><i class="icon-chevron-right"></i> Download</a></li>
+    
+	<li><a href="#file-structure"><i class="icon-chevron-right"></i> Project Structure</a></li>
+    
+	<li><a href="#credentials"><i class="icon-chevron-right"></i> Credentials</a></li>
+    
+	<li><a href="#capturing-audio"><i class="icon-chevron-right"></i> Capturing Audio</a></li>
+    
+	<li><a href="#resampling-audio"><i class="icon-chevron-right"></i> Resampling Audio</a></li>
+    
+	<li><a href="#speech-recognition"><i class="icon-chevron-right"></i> Speech Recognition</a></li>
+    
+	<li><a href="#streaming-speech-recognition"><i class="icon-chevron-right"></i> Streaming Speech Recognition</a></li>
+    
+	<li><a href="#text-to-speech"><i class="icon-chevron-right"></i> Text To Speech</a></li>
+    
+  </ul>
+</div>
+		  </div>
+		  <div class="span8">    
+			<!-- <div class='alert alert-info' markdown="1">
+	**Heads up!** Make sure you've downloaded our [SpeechKit framework]() and have [obtained credentials]() in order for these samples to work.
+</div> -->
+			
+				
+					
+					<section id="overview">
+						
+						<h2 id="overview">Overview</h2>
+<hr><div class="alert alert-warning">
+The CLI is currently intended for use on *nix systems. 
+</div>
+<p>The Python Command Line Interface (CLI) is intended to provide developers with an easy to use, interactive interface to understand the NDEV ASR and TTS HTTP services.</p>
+
+<p>Moreover, the CLI provides utilities that help developers deal with capturing and resampling audio.</p>
+
+<p>The methods that are made available to developers are:</p>
+<table class="table table-bordered"><thead><tr><th>Service</th><th>Command</th></tr></thead><tbody><tr><td style="text-align: left">Capturing Audio</td><td style="text-align: left"><code>record_wav.py some_output_file.wav</code></td>
+</tr><tr><td style="text-align: left">Resample Audio</td><td style="text-align: left"><code>resample.sh some_sample_file.wav</code></td>
+</tr><tr><td style="text-align: left">ASR</td><td style="text-align: left"><code>asr.py some_sample_file.wav --lang=en_US</code></td>
+</tr><tr><td style="text-align: left">Streaming ASR</td><td style="text-align: left"><code>asr_stream.py --lang=tr_TR</code></td>
+</tr><tr><td style="text-align: left">TTS</td><td style="text-align: left"><code>tts.py some_output_file.wav --lang=zh_HK</code></td>
+</tr></tbody></table> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="getting-started">
+						
+						<h2 id="getting_started">Getting Started</h2>
+<hr>
+<p>Before proceeding, make sure you have created an application using <a href="http://ndevmobile.com">ndevmobile.com</a> and identied that the app is using the HTTP services.</p>
+
+<h3 id="mac_specific_setup">Mac Specific Setup</h3>
+
+<p>These installation instructions assume you use <a href="http://mxcl.github.io/homebrew/">Homebrew</a> to manage your packages.</p>
+
+<blockquote><pre class="prettyprint">brew install libsamplerate</pre></blockquote>
+
+<blockquote><pre class="prettyprint">brew install portaudio</pre></blockquote>
+
+<h3 id="linux_specific_setup">Linux Specific Setup</h3>
+
+<p>Replace <code>apt-get</code> with the appropriate package manager for your system.</p>
+
+<blockquote><pre class="prettyprint">apt-get install libsamplerate</pre></blockquote>
+
+<blockquote>
+<p><a href="http://portaudio.com/docs/v19-doxydocs/compile_linux.html">Install portaudio via these instructions</a></p>
+</blockquote>
+
+<h3 id="common_setup">Common Setup</h3>
+
+<p>Once you have installed portaudio, you will want to install the required Python modules. Before proceeding with the modules in <code>requirements.txt</code>, you will want to ensure that you have numpy installed. If you do not:</p>
+
+<blockquote><pre class="prettyprint">pip install numpy </pre></blockquote>
+
+<p>With numpy is installed, it is up to you whether you want to create a <code>virtualenv</code> for the project or not. Regardless, you will want to install the required packages:</p>
+
+<blockquote><pre class="prettyprint">pip install -r requirements.txt </pre></blockquote>
+
+<h3 id="usage">Usage</h3>
+
+<p>To start using the CLI, update the <code>credentials.json</code> file <a href="#credentials">as described below</a>.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="download">
+						
+						<h2 id="download">Download</h2>
+<hr>
+<p>To download these utilities, you can clone the project on GitHub</p>
+<pre class="prettyprint">
+   git clone git@github.com:nuancedev/ndev-python-http-cli.git
+</pre>
+<p>OR</p>
+
+<blockquote>
+<p><a href="http://github.com/nuancedev/ndev-python-http-cli/archive/master.tar.gz">download a zip file</a></p>
+</blockquote> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="file-structure">
+						
+						<h2 id="project_structure">Project Structure</h2>
+<hr>
+<p>The project&#8217;s structure is defined below.</p>
+<pre class="prettyprint">
+ndev-python-http-cli/
+    ├── README.md
+    ├── bin
+    │   ├── asr.py
+    │   ├── asr_stream.py
+    │   ├── asr_then_tts.py
+    │   ├── play_wav.py
+    │   ├── record_and_recognize.sh
+    │   ├── record_wav.py
+    │   ├── resample.sh
+    │   └── tts.py
+    ├── credentials.json
+    ├── ndev
+    │   ├── __init__.py
+    │   ├── asr.py
+    │   ├── core.py
+    │   └── tts.py
+    ├── requirements.txt
+    └── setup.py
+</pre>
+<p>The <code>ndev</code> directory houses all the necessary interfaces for the NDEV HTTP API.</p>
+
+<p>Peruse this code to learn about various aspects of the APIs for both ASR and TTS, like the languages available or the sampling rates available for a given codec.</p>
+
+<p>The <code>bin</code> directory houses all the scripts that you are able to run. When invoking a script, you will want to do so in the root directory of the CLI, as the scripts currently rely on <code>credentials.json</code> being present there.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="credentials">
+						
+						<h2 id="credentials">Credentials</h2>
+<hr>
+<h3 id="overview">Overview</h3>
+
+<p>In order to work with the CLI, you will need to have an <a href="http://nuancemobiledeveloper.comindex.html?task=register">NDEV developer account</a>.</p>
+
+<p>Once you have an account, <em>create an application</em>, and be sure to specify that you&#8217;re using the HTTP service. You will receive an email with credentials and will be able to access the dev portal to see those credentials at any time.</p>
+
+<p>These are the properties that you will need for the Python CLI:</p>
+
+<ul>
+<li>appId</li>
+
+<li>appKey</li>
+
+<li>asrHost</li>
+
+<li>asrEndpoint</li>
+
+<li>ttsHost</li>
+
+<li>ttsEndpoint</li>
+</ul>
+
+<h3 id="supplying_credentials">Supplying Credentials</h3>
+
+<p>The credentials for your app are needed in order to make requests through the CLI. Define them in the <code>credentials.json</code> file.</p>
+
+<p>Here is an example of what the file looks like:</p>
+<pre class="prettyprint">
+{
+  "appId": "HTTP_NMDP_MyApp_20130506033030",  
+  "appKey": "[128-char-key]",  
+  "asrUrl": "[protocol://pathname:port]",  
+  "asrEndpoint": "/dictation",  
+  "ttsUrl": "protocol://pathname:port]",  
+  "ttsEndpoint": "/tts"  
+}
+</pre> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="capturing-audio">
+						
+						<h2 id="capturing_audio">Capturing Audio</h2>
+<hr><div class="alert alert-warning">
+<p><strong>Note</strong> This utility will record audio at the sampling rate determined from the audio device you choose to capture audio from. This will most likely be 44.1kHz or 48kHz. You will need to <a href="#resampling-audio">downsample</a> the recorded audio in order to use it with the NDEV HTTP services.</p>
+</div>
+<h3 id="overview">Overview</h3>
+
+<p>The CLI provide an interface for capturing audio using the <strong>portaudio</strong> library. To use the <code>record_wav.py</code> script, provide the name of the file to write a wave file, <em>including</em> the <em>wav</em> extension, like so:</p>
+<pre class="prettyprint">
+  python bin/record_wav.py my_test.wav
+</pre>
+<h3 id="how_does_it_work">How does it work</h3>
+
+<ol>
+<li>Pick an Audio Device to capture from</li>
+
+<li>Press a key (<code>Enter</code>) to begin capturing audio</li>
+
+<li>Interrupt the program (<code>Ctrl+C</code>) to end capturing audio if &lt; 10s long</li>
+</ol>
+
+<p>Here is an example of the output after having recorded a wav file.</p>
+<pre class="prettyprint">
+Recording to: test.wav
+
+Here are the available audio devices:
+[0]  Built-in Microph	Default Sample Rate: 44100
+[1]  Built-in Input	Default Sample Rate: 44100
+[2]  Built-in Output	Default Sample Rate: 44100
+
+Which device would you like to record audio from: 0
+
+[enter] to begin recording, [ctrl-c] to cancel
+
+o	 recording	(ctrl+c to stop)
+^Cx	 done recording
+</pre><!-- ![Capturing Audio](/images/python_cli/record_wav.png) -->
+<h3 id="dependencies">Dependencies</h3>
+
+<p>The utility leverages the following Python modules</p>
+
+<ul>
+<li>sys</li>
+
+<li>wave</li>
+
+<li>pyaudio</li>
+</ul>
+
+<p>During installation you would have performed <code>pip install -r requirements.txt</code>. This will install <code>pyaudio</code>.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="resampling-audio">
+						
+						<h2 id="resampling_audio">Resampling Audio</h2>
+<hr>
+<h3 id="overview">Overview</h3>
+
+<p>If you record audio using the <code>record.py</code> script, you will notice that the wav file is stored at the sample rate it was captured at, possibly 44.1kHz or 48kHz. The NDEV HTTP service requires that you use 8kHz or 16kHz, and so the audio needs to be resampled.</p>
+
+<p>The CLI offers a <code>resample.sh</code> script that provides an interface leveraging the <a href="http://sox.sourceforge.net/">SOX</a> utility.</p>
+
+<p>Specify the wav file that you want to resample and optionally pass in the sample rate to resample to, i.e. <code>8k</code>, <code>16000</code>.</p>
+
+<p>Here is an example of how to use the script</p>
+<pre class="prettyprint">
+  ./bin/resample.sh test.wav 8k
+</pre>
+<p>If you do <em>not</em> define the sample rate, a rate of <code>16000</code> will be used as the default. The utility will create a new wav file after resampling, with a naming pattern like <code>[name]_[samplerate].wav</code>.</p>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<p>To take advantage of the resampling utility, install <a href="http://sox.sourceforge.net/">SoX</a>.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="speech-recognition">
+						
+						<h2 id="speech_recognition">Speech Recognition</h2>
+<hr><div class="alert alert-info">
+<p>All ASR requests are performed using the <strong>chunked-transfer</strong> encoding transfer mechanism.</p>
+</div>
+<p>To perform speech recognition on an audio file using the NDEV HTTP services use the <code>asr.py</code> script.</p>
+
+<p>This utility will do the following:</p>
+
+<ul>
+<li>
+<p>Determine the appropriate request headers based on the audio file</p>
+</li>
+
+<li>
+<p>Ask the user for a language to use if one is not defined</p>
+</li>
+
+<li>
+<p>Build the request using data available and <code>credentials.json</code></p>
+</li>
+
+<li>
+<p>Issue the request to the HTTP service</p>
+</li>
+
+<li>
+<p>Display the top result for the perform recognition <em>OR</em> Display the error message from the server</p>
+</li>
+</ul>
+
+<h3 id="usage">Usage</h3>
+<pre class="prettyprint">
+Usage: asr.py {source_file.wav} [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -l LANGUAGE, --lang=LANGUAGE
+                        desired language via language code
+</pre>
+<h3 id="sample_output">Sample Output</h3>
+
+<p>The <code>asr.py</code> utility provides an output of an ASR request. For example, using a <code>wav</code> file sampled at a rate of <code>16kHz</code> and using the language <code>en_US</code> results in the following output:</p>
+<pre class="prettyprint">
+* analyzing audio stream...
+
+  Request URL      protocol://server:port/endpoint
+
+  Request Params
+  ---------------
+  appId            --
+  appKey           --
+  id               --
+
+  Request Headers 
+  --------------- 
+  Content-Type        audio/x-wav;bit=16;codec=pcm;rate=16000
+  Transfer-Encoding   chunked
+  Accept              text/plain
+  Accept-Topic        Dictation
+  Accept-Language     en_US
+
+  Audio Information 
+  ----------------- 
+  Sample Width        2
+  Sample Rate         16000
+  Num Channels        1
+  Bit Rate            16
+
+  Audio File          test_16k.wav
+  Bytes Sent          94366/94366       100% 
+
+* analyzed stream.
+</pre> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="streaming-speech-recognition">
+						
+						<h2 id="streaming_speech_recognition">Streaming Speech Recognition</h2>
+<hr>
+<p>Sending audio data in real time while capturing it enhances the user experience drastically when integrating speech into your applications.</p>
+
+<p>There is a utility <code>asr_stream.py</code> that will perform real time streaming and audio capture for speech recognition.</p>
+
+<h3 id="usage">Usage</h3>
+<pre class="prettyprint">
+Usage: asr_stream.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -l LANGUAGE, --lang=LANGUAGE
+                        desired language via language code
+  -s SAMPLERATE, --samplerate=SAMPLERATE
+                        specify the desired samplerate for audio transfer
+  -v, --verbose         see the raw HTTP 
+</pre>
+<p>If you choose to view the raw bytes being transferred during the request, you can use the <code>-v</code>, verbose flag.</p>
+
+<p>The language is optional, and if unspecified, will be determined by the user with an interactive input for available languages.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="text-to-speech">
+						
+						<h2 id="text_to_speech">Text To Speech</h2>
+<hr>
+<p>Speech synthesis from text is a compelling feature that can be added to enhance an application.</p>
+
+<p>The CLI TTS utilities encourage experimentation and allow you to store a wav file that is returned from the server based on text and the given language.</p>
+<div class="alert alert-error">
+<p>Please note that these utilities should not be used to gather samples that can then be used later. This is stated in the <a href="http://www.nuancemobiledeveloper.com/public/index.php?task=policies">Terms of Use</a>.</p>
+</div>
+<h3 id="usage">Usage</h3>
+<pre class="prettyprint">
+Usage: tts.py {destination_file.wav} {text_to_synthesize} [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -l LANGUAGE, --lang=LANGUAGE
+                        desired language via language code
+</pre>
+<h3 id="sample">Sample</h3>
+
+<p>Here is an example of making a TTS request having defined the destination path of the wave file and some text:</p>
+<pre class="prettyprint">
+
+NDEV HTTP Python CLI from Nuance Communications
+    for more info see: http://nuancedev.github.io
+
+Select Synthesis Language
+
+ [0]	Arabic                    ar_WW
+ [1]	Australian English        en_AU
+ [2]	Bahasa (Indonesia)        id_ID
+ [3]	Basque                    eu_ES
+ [4]	Belgian Dutch             nl_BE
+ [5]	Canadian French           fr_CA
+ [6]	Cantonese                 zh_HK
+ [7]	Catalan                   ca_ES
+ [8]	Czech                     cs_CZ
+ [9]	Danish                    da_DK
+ [10]	Dutch                     nl_NL
+ [11]	Finnish                   fi_FI
+ [12]	French                    fr_FR
+ [13]	German                    de_DE
+ [14]	Greek                     el_GR
+ [15]	Hindi                     hi_IN
+ [16]	Hungarian                 hu_HU
+ [17]	Indian English            en_IN
+ [18]	Irish English             en_IE
+ [19]	Italian                   it_IT
+ [20]	Japanese                  jp_JP
+ [21]	Korean                    ko_KR
+ [22]	Mandarin                  zh_CN
+ [23]	Norwegian                 no_NO
+ [24]	Polish                    pl_PL
+ [25]	Portuguese                pt_PT
+ [26]	Portuguese Braz.          pt_BR
+ [27]	Russian                   ru_RU
+ [28]	Scottish English          en_SC
+ [29]	Slovak                    sk_SK
+ [30]	South African English     en_ZA
+ [31]	Spanish Castilian         es_ES
+ [32]	Spanish Mexican           es_MX
+ [33]	Swedish                   sv_SE
+ [34]	Taiwanese Mandarin        zh_TW
+ [35]	Thai                      th_TH
+ [36]	Turkish                   tr_TR
+ [37]	UK English                en_UK
+ [38]	US English                en_US
+
+Which language (default: US English)? 38
+
+The following voices are available in en_US..
+
+ [0]  Samantha (F)
+ [1]  Tom (M)
+ [2]  Allison (F)
+ [3]  Carol (F)
+
+Which voice would you like to use? 3
+
+Using Language: US English (en_US)	Voice: Carol
+
+* synthesizing text...
+
+ Request URL
+ --------------- 
+ http://--
+
+ Request Headers 
+ --------------- 
+ Content-Type:	text/plain; charset=utf-8
+ Accept:	audio/x-wav;bit=16;codec=pcm;rate=8000
+
+ Making request: 1.608563 seconds, 30868 bytes
+
+* synthesize request complete
+
+✓ TTS
+
+Text synthesized to file -> test.wav
+</pre> 
+						
+					</section>
+				
+			
+		   </div>
+		</div>
+		<hr>
+<footer>
+
+	© 2013 <a href="http://www.nuance.com">Nuance Communications</a>, Inc. All rights reserved. 
+
+</footer>
+<br>
+		
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41885251-1', 'nuancedev.github.io');
+  ga('send', 'pageview');
+
+</script>
+		<script data-main="/scripts/main" src="/components/requirejs/require.js"></script>
+	</div>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--
+	 _   _                              ____             
+	| \ | |_   _  __ _ _ __   ___ ___  |  _ \  _____   __
+	|  \| | | | |/ _` | '_ \ / __/ _ \ | | | |/ _ \ \ / /
+	| |\  | |_| | (_| | | | | (_|  __/ | |_| |  __/\ V / 
+	|_| \_|\__,_|\__,_|_| |_|\___\___| |____/ \___| \_/  
+
+-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>NDEV + PhoneGap</title>
+        <meta name="description" content="NDEV + PhoneGap - Reference Implementation using the WP7 SpeechKit SDK">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/components/google-code-prettify/src/prettify.css">
+        <link rel="stylesheet" href="/styles/main.css">
+        <script src="/scripts/vendor/modernizr.js"></script>
+    </head>
+<body data-spy="scroll" data-target=".docs-sidebar">
+    <div class="nuance-bar"></div>
+    <div class="container">
+		<div class="page-header">
+	<h1><strong>NDEV + PhoneGap</strong>
+		<br><small>Reference Implementation using the WP7 SpeechKit SDK</small>
+		<!-- <img style='float:right;position:relative;top:-50px;right:0px;' src="http://www.nuance.com/landing-pages/playground/assets/images/logo-old-black.png"> -->
+		<img src="/images/ndev-logo.png" style="float:right;position:absolute;top:-35px;right:0px">
+		<!-- <img style='float:right;position:relative;top:0px;right:0px;' src='http://www.nuancemobiledeveloper.com/views/images/site/logo-ndev.gif'> -->
+	</h1>
+</div>
+
+ 
+<div class="ui-breadcrumbs">
+	<ul> 
+		<li><i class="icon-chevron-right"></i>  <a href="/">NDEV</a></li>
+		
+		<li><i class="icon-chevron-right"></i>  <a href="/samples/"> Code Samples</a></li>
+		
+		<li><i class="icon-chevron-right"></i> NDEV + PhoneGap on WP7</li>
+		
+	</ul>
+</div>
+
+		<div class="row ui-parted-content">
+		  <div class="span4">
+			<div class="docs-sidebar">
+  <ul class="nav nav-list docs-sidenav">
+	
+	<li><a href="#overview"><i class="icon-chevron-right"></i> Overview</a></li>
+    
+	<li><a href="#getting-started"><i class="icon-chevron-right"></i> Getting Started</a></li>
+    
+	<li><a href="#clone-app"><i class="icon-chevron-right"></i> Download PhoneGap Sample</a></li>
+    
+	<li><a href="#clone-framework"><i class="icon-chevron-right"></i> Downloading SpeechKit</a></li>
+    
+	<li><a href="#integrating-speechkit"><i class="icon-chevron-right"></i> Integrating SpeechKit</a></li>
+    
+	<li><a href="#supplying-credentials"><i class="icon-chevron-right"></i> Supplying Credentials</a></li>
+    
+	<li><a href="#project-structure"><i class="icon-chevron-right"></i> Project Structure</a></li>
+    
+	<li><a href="#plugin-interface"><i class="icon-chevron-right"></i> Plugin Interface</a></li>
+    
+	<li><a href="#initializing-speechkit"><i class="icon-chevron-right"></i> Initializing Speechkit</a></li>
+    
+	<li><a href="#speech-recognition"><i class="icon-chevron-right"></i> Speech Recognition</a></li>
+    
+	<li><a href="#text-to-speech"><i class="icon-chevron-right"></i> Text To Speech</a></li>
+    
+	<li><a href="#documentation"><i class="icon-chevron-right"></i> Documentation</a></li>
+    
+	<li><a href="#version-support"><i class="icon-chevron-right"></i> Version Support</a></li>
+    
+  </ul>
+</div>
+		  </div>
+		  <div class="span8">    
+			
+			
+				
+					
+					<section id="overview">
+						
+						<h2 id="overview">Overview</h2>
+<hr>
+<p>We are pleased to provide you with a reference implementation of a PhoneGap plugin that integrates Nuance&#8217;s NDEV mobile speech SDKs.</p>
+<div class="alert alert-warning">
+<p><strong>Please Note</strong> This code is intended to show how a PhoneGap plugin can be created utilizing the NDEV SpeechKit framework. This is <strong>not</strong> 1:1 to the SpeechKit API, and was tested successfully for the version of SpeechKit defined in the <a href="#version-support">version support</a> section below.</p>
+</div> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="getting-started">
+						
+						<h2 id="getting_started">Getting Started</h2>
+<hr>
+<p>Take the following steps to compile the sample iOS PhoneGap project</p>
+
+<ol>
+<li>
+<p>Create an application on the <a href="http://nuancemobiledeveloper.com">NDEV portal</a></p>
+</li>
+
+<li>
+<p><a href="#clone-app">Clone the PhoneGap Sample code</a> for WP7 into a repository</p>
+</li>
+
+<li>
+<p>Open the <code>PhoneGapDemo.sln</code> file with Visual Studio</p>
+</li>
+
+<li>
+<p>Download and <a href="#integrating-speechkit">integrate</a> the WP7 SpeechKit DLLs</p>
+</li>
+
+<li>
+<p><a href="#supplying-credentials">Supply credentials</a> and launch</p>
+</li>
+</ol> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="clone-app">
+						
+						<h2 id="download_phonegap_sample">Download PhoneGap Sample</h2>
+<hr><pre class="prettyprint">
+   git clone git@github.com:nuancedev/ndev-phonegap-wp7.git
+</pre>
+<p>OR</p>
+
+<blockquote>
+<p><a href="http://github.com/nuancedev/ndev-phonegap-wp7/archive/master.tar.gz">download the tar.gz file</a></p>
+</blockquote> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="clone-framework">
+						
+						<h2 id="downloading_speechkit">Downloading SpeechKit</h2>
+<hr>
+<p>Please go to the <a href="http://nuancemobiledeveloper.com">NDEV portal</a> and download the appropriate SDK.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="integrating-speechkit">
+						
+						<h2 id="integrating_speechkit">Integrating SpeechKit</h2>
+<hr>
+<p>After downloading and unzipping the WP7 SpeechKit SDK, you will need to copy the SpeechKit DLLs into the <code>lib</code> folder of the sample app.</p>
+
+<p><img alt="Add DLLs to lib" src="/images/phonegap/wp7/add_dlls_to_lib.png"></p>
+
+<p>After adding the DLLs into the app&#8217;s <code>lib</code> directory, open the solution.</p>
+
+<p>In Visual Studio, right click on <code>References</code> and notice the <code>Add Reference..</code> menu item.</p>
+
+<p><img alt="Add Reference" src="/images/phonegap/wp7/right_click_add_reference.png"></p>
+
+<p>Select <code>Add Reference</code>. You will now be prompted to select the DLLs to import. Navigate to the <code>lib</code> directory and import the NDEV related DLLs.</p>
+
+<p><img alt="Import SpeechKit" src="/images/phonegap/wp7/importing_speechkit.png"></p>
+
+<p>For more in depth documentation on the SpeechKit SDK, please refer to the <a href="http://nuancemobiledeveloper.com">NDEV website</a>.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="supplying-credentials">
+						
+						<h2 id="supplying_credentials">Supplying Credentials</h2>
+
+<p>After adding the references to the various DLLs, you will need to supply your app&#8217;s credentials.</p>
+
+<p>Navigate to <code>src/com/nuance/SpeechKit/phonegap/Credentials.cs</code>.</p>
+
+<p>Provide the following</p>
+
+<ul>
+<li>SpeechKit Application Key</li>
+
+<li>NDEV Application ID</li>
+</ul>
+
+<p><img alt="Supply Credentials" src="/images/phonegap/wp7/supply_credentials.png"></p>
+
+<p>Navigate to <code>/assets/www/js/sample.js</code> and provide the following</p>
+
+<ul>
+<li>Server URL</li>
+</ul>
+
+<p><img alt="Add Server URL to JS" src="/images/phonegap/android/add_server_url_to_js.png"></p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="project-structure">
+						
+						<h2 id="project_structure">Project Structure</h2>
+<hr>
+<p>Here&#8217;s a high level snapshot of how the project is set up</p>
+<pre class="prettyprint">
+PhoneGapDemo
+	├── PhoneGapDemo.sln
+	├── PhoneGapDemo.suo
+	└── PhoneGapSpeechTest
+	    ├── App.xaml
+	    ├── App.xaml.cs
+	    ├── ApplicationIcon.png
+	    ├── Background.png
+	    ├── BuildManifestProcessor.js
+	    ├── CordovaSourceDictionary.xml
+	    ├── MainPage.xaml
+	    ├── MainPage.xaml.cs
+	    ├── PhoneGapSpeechTest.csproj
+	    ├── Properties
+	    │   ├── AppManifest.xml
+	    │   ├── AssemblyInfo.cs
+	    │   └── WMAppManifest.xml
+	    ├── SplashScreenImage.jpg
+	    ├── beep.wav
+	    ├── config.xml
+	    ├── lib
+	    │   ├── WPCordovaClassLib.dll
+	    ├── obj
+	    ├── src
+	    │   └── com
+	    │       └── nuance
+	    │           └── speechkit
+	    │               └── phonegap
+	    │                   ├── Credentials.cs
+	    │                   ├── ICredentials.cs
+	    │                   └── PhoneGapSpeechPlugin.cs
+	    └── www
+	        ├── cordova-2.6.0.js
+	        ├── index.html
+	        ├── nuancespeechkit.js
+	        ├── sample.css
+	        ├── sample.js
+	        └── transparent.png
+</pre>
+<p>The web implementation is within the <code>PhoneGapSpeechTest/www/</code> directory, and the app logic itself is in <code>/PhoneGapSpeechTest/www/sample.js</code>.</p> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="plugin-interface">
+						
+						<h2 id="plugin_interface">Plugin Interface</h2>
+<hr>
+<p>The plugin code is located in</p>
+
+<blockquote>
+<p><code>/src/com/nuance/speechkit/phonegap/PhoneGapSpeechPlugin.cs</code></p>
+</blockquote>
+
+<p>The PhoneGap configuration file is located in</p>
+
+<blockquote>
+<p><code>/config.xml</code></p>
+</blockquote>
+
+<p>The JavaScript plugin code is located in</p>
+
+<blockquote>
+<p><code>/www/nuancespeechkit.js</code></p>
+</blockquote> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="initializing-speechkit">
+						
+						<h2 id="initializing_speechkit">Initializing SpeechKit</h2>
+<hr>
+<p>When the app has launched and the <code>deviceready</code> is triggered, you can initialize SpeechKit.</p>
+
+<p>This specific implementation requires the following arguments:</p>
+
+<ul>
+<li>Credentials Class, the name of the class defined in the <code>Plugins/</code> directory</li>
+
+<li>Speech Kit Server</li>
+
+<li>Port</li>
+
+<li>Enable SSL</li>
+
+<li>Success Callback</li>
+
+<li>Failure Callback</li>
+</ul>
+<pre class="prettyprint">
+function initSpeechKit(){
+
+    var credentialsClass = "Credentials";
+    var speechKitServer = "[server-url]";
+    var port = 443;
+    var enableSSL = false;
+    var successCallback = function(result){};
+    var failureCallback = function(result){};
+
+    speechKit.initialize(
+                  credentialsClass,
+                  speechKitServer,
+                  port,
+                  enableSSL,
+                  successCallback,
+                  failureCallback);
+
+}
+</pre> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="speech-recognition">
+						
+						<h2 id="speech_recognition">Speech Recognition</h2>
+<hr>
+<p>The NDEV SpeechKit PhoneGap interface exposes two recognition related methods <code>startRecognition</code> and <code>stopRecognition</code> on the global element <code>speechKit</code>.</p>
+
+<p>Provided that SpeechKit has been initialized, the <code>startRecognition</code> will begin to capture audio for ASR given the following parameters:</p>
+
+<ul>
+<li>Recognition Type</li>
+
+<li>Recognition Language</li>
+
+<li>ASR Callback</li>
+
+<li>Failure Callback</li>
+</ul>
+<br><pre class="prettyprint">
+    function startRecognition(){
+        
+        // State: listening
+        var recognitionType = "dictation";
+        var recognitionLanguage = "en_US";
+        var asrCallback = function(result){
+            // switch on `result.event`
+            //    'RecoVolumeUpdate', 'RecoComplete'
+            console.log(result);
+        };
+        var failureCallback = function(error){
+            // switch on `error.event`
+            //    'RecoStopped', 'RecoError'
+            console.log(error);
+        };
+        speechKit.startRecognition(
+                        recognitionType, 
+                        recognitionLanguage, 
+                        asrCallback, 
+                        failureCallback );
+
+    }
+</pre>
+<p>If you have endpoint-detection enabled, the system will not need to trigger an explicit <code>stopRecognition</code> request. However, if you <em>do not</em> have endpoint-detection enabled, or you simply want to stop the request, you will want to explicitly trigger it with the following parameters:</p>
+
+<ul>
+<li>Success Callback</li>
+
+<li>Failure Callback</li>
+</ul>
+<br><pre class="prettyprint">
+    function stopRecognition(){
+    
+        var successCallback = function(result){
+            console.log(result);
+        };
+        var failureCallback = function(error){
+            console.log(error);
+        };
+    
+        speechKit.stopRecognition(
+                        successCallback, 
+                        failureCallback);
+    
+    }
+</pre> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="text-to-speech">
+						
+						<h2 id="text_to_speech">Text To Speech</h2>
+<hr>
+<p>The NDEV SpeechKit PhoneGap interface exposes two synthesis related methods <code>playTTS</code> and <code>stopTTS</code> on the global element <code>speechKit</code>.</p>
+
+<p>Provided that SpeechKit has been initialized, the <code>playTTS</code> will begin to play the synthesized text given the following parameters:</p>
+
+<ul>
+<li>Text to synthesize</li>
+
+<li>Language</li>
+
+<li>Voice (optional if Language specified)</li>
+
+<li>TTS Callback</li>
+</ul>
+<br><pre class="prettyprint">
+    function playTTS(){
+        var textToSynthesize = "Test";
+        var ttsLanguage = "en_US";
+        var ttsCallback = function(result){
+            // switch on `result.event`
+            //    'TTSStarted', 'TTSComplete', 
+            //    'TTSPlaying', 'TTSStopped'
+            console.log(result);
+        };
+        var failureCallback = function(error){
+            // switch on `error.event`
+            //    'TTSError'
+            console.log(error);
+        };
+        speechKit.playTTS(
+                    textToSynthesize, 
+                    ttsLanguage, 
+                    null, 
+                    ttsCallback,
+                    failureCallback);
+    }
+</pre>
+<p>To issue the explicit command to <em>stop</em> playing the synthesized text audio, you can invoke the <code>stopTTS</code> function.</p>
+<pre class="prettyprint">
+    function stopTTS(){
+        var ttsCallback = function(result){
+            // switch on `result.event`
+            //    'TTSStopped'
+            console.log(result);
+        };
+        var failureCallback = function(error){
+            // switch on `error.event`
+            //    'TTSError'
+            console.log(error);
+        };
+        speechKit.stopTTS(ttsCallback, failureCallback);
+    }
+</pre> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="documentation">
+						
+						<h2 id="documentation">Documentation</h2>
+<hr>
+<p>PhoneGap Related</p>
+
+<ul>
+<li><a href="/docs/nuancespeechkit.html">nuancespeechkit.js</a></li>
+</ul>
+
+<p>SpeechKit API Related</p>
+
+<ul>
+<li>
+<p><a href="http://nuancemobiledeveloper.com/public/index.php?task=prodDev">SpeechKit iOS</a></p>
+</li>
+
+<li>
+<p><a href="http://nuancemobiledeveloper.com/public/index.php?task=prodDev">SpeechKit Android</a></p>
+</li>
+
+<li>
+<p><a href="http://nuancemobiledeveloper.com/public/index.php?task=prodDev">SpeechKit WP7</a></p>
+</li>
+</ul> 
+						
+					</section>
+				
+			
+				
+					
+					<section id="version-support">
+						
+						<h2 id="version_support">Version Support</h2>
+<hr>
+<p>We can guarantee that given the versions defined below, the app will successfully compile and run.</p>
+<table class="table table-bordered"><thead><tr><th>Dependency</th><th>Version</th></tr></thead><tbody><tr><td style="text-align: left">Apache Cordova</td><td style="text-align: left">2.6.0</td>
+</tr><tr><td style="text-align: left">NDEV WP7 SpeechKit Framework</td><td style="text-align: left">1.4.0</td>
+</tr><tr><td style="text-align: left">Windows Phone SDK</td><td style="text-align: left">7.1</td>
+</tr></tbody></table>
+<p>If you have any questions, please visit our <a href="http://www.nuancemobiledeveloper.com/public/index.php?task=forum">forum</a>.</p> 
+						
+					</section>
+				
+			
+		   </div>
+		</div>
+		<hr>
+<footer>
+
+	© 2013 <a href="http://www.nuance.com">Nuance Communications</a>, Inc. All rights reserved. 
+
+</footer>
+<br>
+		
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41885251-1', 'nuancedev.github.io');
+  ga('send', 'pageview');
+
+</script>
+		<script data-main="/scripts/main" src="/components/requirejs/require.js"></script>
+	</div>
+</body>
+</html>

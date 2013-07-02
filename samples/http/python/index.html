@@ -459,22 +459,29 @@ Options:
 <hr>
 <p>Speech synthesis from text is a compelling feature that can be added to enhance an application.</p>
 
-<p>The CLI TTS utilities encourage experimentation and allow you to store a wav file that is returned from the server based on text and the given language.</p>
+<p>The CLI TTS utilities encourage experimentation and allow you to store an audio file that is returned from the server based on text and the given language.</p>
 <div class="alert alert-error">
 <p>Please note that these utilities should not be used to gather samples that can then be used later. This is stated in the <a href="http://www.nuancemobiledeveloper.com/public/index.php?task=policies">Terms of Use</a>.</p>
 </div>
 <h3 id="usage">Usage</h3>
 <pre class="prettyprint">
-Usage: tts.py {destination_file.wav} {text_to_synthesize} [options]
+Usage: tts.py {destination_file_name.format} {text_to_synthesize} [options]
 
 Options:
   -h, --help            show this help message and exit
   -l LANGUAGE, --lang=LANGUAGE
-                        desired language via language code
+                        desired language via language code, i.e. en_US
+  -r SAMPLERATE, --rate=SAMPLERATE
+                        the sample rate to use for the create audio file if
+                        relevant, i.e. 16000
 </pre>
 <h3 id="sample">Sample</h3>
 
-<p>Here is an example of making a TTS request having defined the destination path of the wave file and some text:</p>
+<p>Here is an example of making a TTS request having defined the destination path of a <code>wav</code> file and some text:</p>
+
+<blockquote>
+<p><code>./bin/tts.py test.wav &quot;this is a test&quot;</code></p>
+</blockquote>
 <pre class="prettyprint">
 
 NDEV HTTP Python CLI from Nuance Communications
@@ -509,51 +516,83 @@ Select Synthesis Language
  [24]	Polish                    pl_PL
  [25]	Portuguese                pt_PT
  [26]	Portuguese Braz.          pt_BR
- [27]	Russian                   ru_RU
- [28]	Scottish English          en_SC
- [29]	Slovak                    sk_SK
- [30]	South African English     en_ZA
- [31]	Spanish Castilian         es_ES
- [32]	Spanish Mexican           es_MX
- [33]	Swedish                   sv_SE
- [34]	Taiwanese Mandarin        zh_TW
- [35]	Thai                      th_TH
- [36]	Turkish                   tr_TR
- [37]	UK English                en_UK
- [38]	US English                en_US
+ [27]	Romanian                  ro_RO
+ [28]	Russian                   ru_RU
+ [29]	Scottish English          en_SC
+ [30]	Slovak                    sk_SK
+ [31]	South African English     en_ZA
+ [32]	Spanish Castilian         es_ES
+ [33]	Spanish Mexican           es_MX
+ [34]	Swedish                   sv_SE
+ [35]	Taiwanese Mandarin        zh_TW
+ [36]	Thai                      th_TH
+ [37]	Turkish                   tr_TR
+ [38]	UK English                en_UK
+ [39]	US English                en_US
 
-Which language (default: US English)? 38
+Which language (default: US English)? 39
 
 The following voices are available in en_US..
 
- [0]  Samantha (F)
- [1]  Tom (M)
- [2]  Allison (F)
- [3]  Carol (F)
+ [0]  Allison (F)
+ [1]  Carol (F)
+ [2]  Samantha (F)
+ [3]  Tom (M)
 
-Which voice would you like to use? 3
+Which voice would you like to use? 0
 
-Using Language: US English (en_US)	Voice: Carol
+Using Language: US English (en_US)	Voice: Allison
+
+The following sample rates are available for the 'wav' format..
+
+ [0]  8000Hz
+ [1]  16000Hz
+ [2]  22000Hz
+
+What sample rate would you like to use? 1
+
+Using Sample Rate: 16000
 
 * synthesizing text...
 
  Request URL
  --------------- 
- http://--
+ [url here]
 
  Request Headers 
  --------------- 
  Content-Type:	text/plain; charset=utf-8
- Accept:	audio/x-wav;bit=16;codec=pcm;rate=8000
+ Accept:	audio/x-wav;bit=16;codec=pcm;rate=16000
 
- Making request: 1.608563 seconds, 30868 bytes
+ Making request: 1.038076 seconds, 43648 bytes
 
 * synthesize request complete
 
 ✓ TTS
 
 Text synthesized to file -> test.wav
-</pre> 
+</pre>
+<h3 id="file_formats">File Formats</h3>
+
+<p>The TTS service supports the ability to create synthesized samples in</p>
+
+<ul>
+<li><strong><code>wav</code></strong> (Sample Rates: 8k, 16k, 22k)</li>
+
+<li><strong><code>spx</code></strong> or <strong><code>ogg</code></strong> (Sample Rates: 8k, 16k)</li>
+
+<li><strong><code>mp3</code></strong></li>
+
+<li><strong><code>amr</code></strong></li>
+</ul>
+
+<p>The format will be determined based upon specifying the <strong>extension</strong> for the file to write out.</p>
+
+<p>For example if you specify <code>test.wav</code> the resulting file will be of wave format (with unsigned PCM).</p>
+
+<p>Alternatively, if you specify <code>test.mp3</code> the resulting file will be an mp3 format with a bit rate of 128kbps.</p>
+
+<p>If you deal with <code>spx</code> or <code>ogg</code>, you may want to use the <code>speex</code> library to decode it into wave.</p> 
 						
 					</section>
 				
